@@ -9,9 +9,6 @@ evaluator, all wrapped in an interactive REPL.
 IMP supports integer and boolean expressions, variable assignment, sequencing, `if`/`then`/`else`
 conditionals, and `while` loops over an explicit program state.
 
-> For an in-depth, first-principles explanation of how parsers and interpreters work — using this
-> codebase as the worked example — see [`Description.md`](./Description.md).
-
 ## Features
 
 - **Hand-written tokenizer** with maximal-munch scanning (identifiers, keywords, symbols, integers).
@@ -47,12 +44,12 @@ ghci ImpPar.hs EvSem.hs
 
 At the `>IMP>` prompt:
 
-| Command                      | Meaning                                                        |
-| ---------------------------- | ------------------------------------------------------------- |
-| `eval (<code>,<state>)`      | Parse and evaluate a program.                                 |
-| `run <filename>`             | Evaluate every line of a file, annotating each with `==>`.    |
-| `help` / `help 1\|2\|3`      | Show help and the BNF grammar.                                |
-| `quit`                       | Exit the REPL.                                                |
+| Command                 | Meaning                                                    |
+| ----------------------- | ---------------------------------------------------------- |
+| `eval (<code>,<state>)` | Parse and evaluate a program.                              |
+| `run <filename>`        | Evaluate every line of a file, annotating each with `==>`. |
+| `help` / `help 1\|2\|3` | Show help and the BNF grammar.                             |
+| `quit`                  | Exit the REPL.                                             |
 
 `<code>` is either `C <com>` (a command — evaluates to a final state) or `E <intexp>` (an integer
 expression — evaluates to an `Int`). `<state>` is `[]` or a list of bindings like `[(x,5),(y,2)]`.
@@ -94,18 +91,18 @@ where `<var>` is an alphabetic string and `<int>` is an integer.
 
 ## Project Layout
 
-| Module        | Responsibility                                                                 |
-| ------------- | ------------------------------------------------------------------------------ |
-| `Tokens.hs`   | Tokenizer: `String → [Token]` via maximal-munch scanning.                       |
-| `Parse.hs`    | Generic parser-combinator library (`next`, `alt`, `build`, `many`, primitives). |
-| `ImpPar.hs`   | The IMP grammar built from the combinators, plus AST-building functions.        |
-| `AST.hs`      | Algebraic data types for the language: `Com`, `IntExp`, `BoolExp`, `State`.     |
-| `EvSem.hs`    | Evaluator: big-step semantics `evalint` / `evalbool` / `evalcom`.               |
-| `Pretty.hs`   | Precedence-aware pretty printer (`Pretty` typeclass).                            |
-| `Basic.hs`    | List / association-list helpers (`mem`, `lookUp`, `update`).                     |
-| `Files.hs`    | File-batch evaluation mode.                                                      |
-| `Help.hs`     | REPL banner and help text.                                                       |
-| `Main.hs`     | The REPL loop dispatching on parsed instructions.                                |
+| Module      | Responsibility                                                                  |
+| ----------- | ------------------------------------------------------------------------------- |
+| `Tokens.hs` | Tokenizer: `String → [Token]` via maximal-munch scanning.                       |
+| `Parse.hs`  | Generic parser-combinator library (`next`, `alt`, `build`, `many`, primitives). |
+| `ImpPar.hs` | The IMP grammar built from the combinators, plus AST-building functions.        |
+| `AST.hs`    | Algebraic data types for the language: `Com`, `IntExp`, `BoolExp`, `State`.     |
+| `EvSem.hs`  | Evaluator: big-step semantics `evalint` / `evalbool` / `evalcom`.               |
+| `Pretty.hs` | Precedence-aware pretty printer (`Pretty` typeclass).                           |
+| `Basic.hs`  | List / association-list helpers (`mem`, `lookUp`, `update`).                    |
+| `Files.hs`  | File-batch evaluation mode.                                                     |
+| `Help.hs`   | REPL banner and help text.                                                      |
+| `Main.hs`   | The REPL loop dispatching on parsed instructions.                               |
 
 ## Attribution
 
